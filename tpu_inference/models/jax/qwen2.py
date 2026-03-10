@@ -231,6 +231,7 @@ class Qwen2Attention(JaxModule):
             v_scale = self._v_scale
             k, v = quantize_kv(self.kv_cache_quantized_dtype, k, v, k_scale,
                                v_scale)
+
         new_kv_cache, outputs = attention(
             kv_cache,
             q,
@@ -301,6 +302,7 @@ class Qwen2DecoderLayer(JaxModule):
         attention_metadata: AttentionMetadata,
     ) -> Tuple[jax.Array, jax.Array]:
         hidden_states = self.input_layernorm(x)
+
         kv_cache, attn_output = self.self_attn(
             kv_cache,
             hidden_states,
